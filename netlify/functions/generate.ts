@@ -1,3 +1,4 @@
+import type { Handler } from "@netlify/functions";
 import { GoogleGenAI, Type } from "@google/genai";
 
 // Inlined types to make the function self-contained
@@ -8,19 +9,6 @@ interface Brand {
   keywords: string;
   website: string;
 }
-
-// Netlify Function handler types
-interface HandlerEvent {
-  httpMethod: string;
-  body: string | null;
-}
-interface HandlerContext {}
-interface HandlerResponse {
-  statusCode: number;
-  body: string;
-  headers?: { [header: string]: string | number | boolean; }
-}
-type Handler = (event: HandlerEvent, context: HandlerContext) => Promise<HandlerResponse>;
 
 if (!process.env.API_KEY) {
     throw new Error("API_KEY environment variable is not set for Netlify Function.");
@@ -127,9 +115,10 @@ const handler: Handler = async (event, context) => {
 
     } catch (error) {
         console.error('Error in Netlify function:', error);
+        const errorMessage = error instanceof Error ? error.message : 'An internal server error occurred.';
         return {
             statusCode: 500,
-            body: JSON.stringify({ error: error instanceof Error ? error.message : 'An internal server error occurred.' }),
+            body: JSON.stringify({ error: `There was an issue with the AI model. Details: ${errorMessage}` }),
             headers: { 'Content-Type': 'application/json' },
         };
     }
