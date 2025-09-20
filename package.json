@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "AI-powered Instagram content assistant",
   "private": true,
+  "scripts": {
+    "build": "echo \"No build step required for frontend. Netlify handles function bundling.\""
+  },
   "dependencies": {
     "@google/genai": "^1.20.0"
   },
