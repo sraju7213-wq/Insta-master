@@ -1,0 +1,5 @@
+{
+  "name": "InstaGenius: Caption & Hashtag AI",
+  "description": "An AI-powered web application to generate tailored Instagram captions and hashtags for multiple brands. Users can provide an image or text context to get content that matches their selected brand's unique voice and style.",
+  "requestFramePermissions": []
+}
